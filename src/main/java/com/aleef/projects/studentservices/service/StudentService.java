@@ -53,7 +53,7 @@ public class StudentService {
                  return student.getCourses();
         }
         else{
-            log.info("Student not found");
+            log.info("Student not found exception");
         }}
         return null;
     }
