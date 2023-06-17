@@ -49,7 +49,7 @@ public class StudentService {
     }
     public List<Courses> retrieveCourseStudentRegisteredFor(String studentId){
         for (Student student:studentList
-             ) {if(studentId==student.getId()){
+             ) {if(student.getId().equals(studentId)){
                  return student.getCourses();
         }
         else{
@@ -59,9 +59,9 @@ public class StudentService {
     }
     public Courses retrieveCourseDetailsForStudent(String studentId,String courseId) {
         for (Student student : studentList) {
-            if (studentId == student.getId()) {
+            if (student.getId().equals(studentId)) {
                 for (Courses course : student.getCourses()) {
-                    if (courseId == course.getId()) {
+                    if (course.getId().equals(courseId)) {
                         return course;
                     }else{
                         log.info("course not found");
@@ -74,8 +74,11 @@ public class StudentService {
     }
     public void addCourse(String studentId,Courses course){
         for (Student student:studentList) {
-            if(studentId==student.getId()){
-                student.setCourses((List<Courses>) course);
+            if(student.getId().equals(studentId)){
+                List<Courses>  existingCourses = student.getCourses();
+                existingCourses.add(course);
+                student.setCourses(existingCourses);
+                log.info(String.valueOf(studentList));
             }else{
                 log.info("unable to add course to the student");
             }
